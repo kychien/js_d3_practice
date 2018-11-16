@@ -21,13 +21,8 @@ function tCase(str) {
     return words.join(" ");
 }
 
-var tCases = ["city", "shape", "durationMinutes"];
-var tUp = ["state", "country"];
-var tbody = d3.select("tbody");
-
-data.forEach(set => {
-    var row = tbody.append("tr");
-    Object.entries(set).forEach(([key, value]) => {
+function buildRow(row, cells){
+    Object.entries(cells).forEach(([key, value]) => {
         var cell = row.append("td");
         if (key != "comments") {
             cell.attr("class", "t-cen");
@@ -41,6 +36,66 @@ data.forEach(set => {
         } else {
             cell.text(value);
         }
-
     });
+}
+
+var tCases = ["city", "shape", "durationMinutes"];
+var tUp = ["state", "country"];
+var ufoTBody = d3.select("#ufo-table-body");
+var fBtn = d3.select("#filter-btn");
+
+
+// Populate the pre-filtered table
+data.forEach(set => {
+    var row = ufoTBody.append("tr");
+    // Object.entries(set).forEach(([key, value]) => {
+    //     var cell = row.append("td");
+    //     if (key != "comments") {
+    //         cell.attr("class", "t-cen");
+    //         if (tCases.indexOf(key) > -1){
+    //             cell.text(tCase(value));
+    //         } else if (tUp.indexOf(key) > -1){
+    //             cell.text(value.toUpperCase());
+    //         } else {
+    //             cell.text(value);
+    //         }
+    //     } else {
+    //         cell.text(value);
+    //     }
+
+    // });
+    buildRow(row, set);
+});
+
+fBtn.on("click", function() {
+
+    // Prevent the refresh
+    d3.event.preventDefault();
+
+    var fList = d3.select("#filters");
+    var fDate = fList.select("#datetime").property("value");
+    var targetDate = new Date(fDate);
+    
+    // Filter on the provided date
+    var fSet = data.filter(spot => {
+        var spotDate = new Date(spot.datetime);
+        return targetDate.getTime() === spotDate.getTime();
+    });
+    
+    console.log(fSet);
+
+    var fTBody = document.createElement("tbody");
+    fTBody.setAttribute("id", "ufo-table-body");
+    var oTBody = document.getElementById("ufo-table-body");
+    oTBody.parentNode.replaceChild(fTBody, oTBody);
+
+    ufoTBody = d3.select("#ufo-table-body");
+
+    fSet.forEach(set => {
+        var row = ufoTBody.append("tr");
+        buildRow(row, set);
+    });
+
+    
+
 });
