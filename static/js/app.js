@@ -38,6 +38,9 @@ data.forEach(set => {
             } else {
                 cell.text(value);
             }
+        } else {
+            cell.text(value);
         }
+
     });
 });
