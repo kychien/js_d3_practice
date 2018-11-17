@@ -37,6 +37,7 @@ function buildRow(row, cells){
             cell.text(value);
         }
     });
+    return;
 }
 
 var tCases = ["city", "shape", "durationMinutes"];
@@ -72,15 +73,21 @@ fBtn.on("click", function() {
     // Prevent the refresh
     d3.event.preventDefault();
 
+    // Make a copy of the data set to manipulate
+    var fSet = data.map(i => i);
+    // var update = false;
     var fList = d3.select("#filters");
     var fDate = fList.select("#datetime").property("value");
+    console.log(fDate);
     var targetDate = new Date(fDate);
     
-    // Filter on the provided date
-    var fSet = data.filter(spot => {
-        var spotDate = new Date(spot.datetime);
-        return targetDate.getTime() === spotDate.getTime();
-    });
+    if (fDate != ""){
+        // Filter on the provided date
+        fSet = fSet.filter(spot => {
+            var spotDate = new Date(spot.datetime);
+            return targetDate.getTime() === spotDate.getTime();
+        });
+    }
     
     console.log(fSet);
 
@@ -95,7 +102,5 @@ fBtn.on("click", function() {
         var row = ufoTBody.append("tr");
         buildRow(row, set);
     });
-
-    
-
+    return;
 });

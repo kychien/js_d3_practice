@@ -65,6 +65,10 @@ body {
   margin-top: 10px;
 }
 
+.t-cen {
+  text-align: center;
+}
+
 select {
   display: block;
   width: 100%;
