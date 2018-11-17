@@ -41,7 +41,7 @@
                       </li>
                       <li class="filter list-group-item">
                           <label for="level">Select Locale Level</label>
-                          <select class="form-control" id="lvl-list">
+                          <select class="form-control" id="lvl-list" onchange="updateOpts(this.value)">
                             <option value="city">City</option>
                             <option value="state">State</option>
                             <option value="country">Country</option>
@@ -50,31 +50,15 @@
                       <li class="filter list-group-item">
                           <label for="locale">Specify Location</label>
                           <select class="form-control" id="locale-list">
-                              <option value="all">All</option>
+                              <option value="all">Any</option>
+                              <option disabled>──────────</option>
                           </select>
                       </li>
-                      <!-- <li class="filter list-group-item">
-                        <label for="city">Select a City</label>
-                        <select class="form-control" id="city-list">
-                          <option value="all">All</option>
-                        </select>
-                      </li>
-                      <li class="filter list-group-item">
-                        <label for="state">Select a State Abbreviation</label>
-                        <select class="form-control" id="state-list">
-                            <option value="all">All</option>
-                        </select>
-                      </li>
-                      <li class="filter list-group-item">
-                        <label for="country">Select a Country</label>
-                        <select class="form-control" id="country-list">
-                            <option value="all">All</option>
-                        </select>
-                      </li> -->
                       <li class="filter list-group-item">
                         <label for="date">Select a Shape</label>
                         <select class="form-control" id="shape-list">
-                            <option value="all">All</option>
+                            <option value="all">Any</option>
+                            <option disabled>──────────</option>
                         </select>
                       </li>
                     </ul>
