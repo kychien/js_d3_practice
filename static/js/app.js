@@ -40,11 +40,25 @@ function buildRow(row, cells){
     return;
 }
 
+function buildOpt(arr, id){
+    var target = d3.select(id);
+    Object.values(arr).forEach(val => {
+        var newOpt = target.append("option");
+        newOpt.attr("value", val);
+        newOpt.text(val);
+    });
+    return;
+}
+
 var tCases = ["city", "shape", "durationMinutes"];
 var tUp = ["state", "country"];
 var ufoTBody = d3.select("#ufo-table-body");
 var fBtn = d3.select("#filter-btn");
-
+var citiesOpt = [];
+var citiesLbl = [];
+var statesOpt = [];
+var countriesOpt = [];
+var shapesOpt = [];
 
 // Populate the pre-filtered table
 data.forEach(set => {
@@ -66,7 +80,24 @@ data.forEach(set => {
 
     // });
     buildRow(row, set);
+
+    if (citiesOpt.indexOf(set.city) < 0) {
+        citiesOpt.push(set.city);
+        citiesLbl.push(tCase(set.city) + ", " + set.state.toUpperCase())
+    }
+    if (statesOpt.indexOf(set.state) < 0) {
+        statesOpt.push(set.state);
+    }
+    if (countriesOpt.indexOf(set.country) < 0) {
+        countriesOpt.push(set.country);
+    }
+    if (shapesOpt.indexOf(set.shape) < 0) {
+        shapesOpt.push(set.shape);
+    }
 });
+
+buildOpt(citiesLbl.sort(), "#locale-list");
+
 
 fBtn.on("click", function() {
 
